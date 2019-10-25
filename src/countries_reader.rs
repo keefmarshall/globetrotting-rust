@@ -41,7 +41,7 @@ mod tests {
 
     #[test]
     fn test_load_file() {
-        let countries = read_countries_from_file("../countries.json").unwrap();
+        let countries = read_countries_from_file("resources/countries.json").unwrap();
 
         assert_eq!(countries.len(), 211); // 304
         assert_eq!(countries[0].id, "ABW");

@@ -16,7 +16,7 @@ mod tests {
 
     #[test]
     fn test_thing() {
-        let countries = countries_reader::read_countries_from_file("../countries.json").unwrap();
+        let countries = countries_reader::read_countries_from_file("resources/countries.json").unwrap();
         let distance = distance_calculator::calculate_distance(&countries[0], &countries[1]); // Aruba to Afghanistam
         assert!( (distance - 13240.6).abs() < 1.0);
 
