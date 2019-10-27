@@ -1,3 +1,4 @@
+use std::env;
 
 mod country;
 mod country_list_ops;
@@ -6,11 +7,23 @@ mod distance_calculator;
 mod route_finder;
 
 fn main() {
+    let mut target_city = "Washington D.C.";
+    let mut target_range = 2000.0;
+
+    let args: Vec<String> = env::args().collect();
+    if args.len() > 1 {
+        println!("{}", args.join(" "));
+        let sections: Vec<&str> = args[1].split('|').collect();
+        if sections.len() == 2 {
+            target_city = sections[1];
+            target_range = sections[0].parse().unwrap();
+        }
+    }
 
     let countries = countries_reader::read_countries_from_file("resources/countries.json").unwrap();
     let country_map = country_list_ops::generate_lookup_map(&countries);
     let rf = route_finder::RouteFinder(&country_map);
-    let route = rf.find_route("London", 2000.0, &vec![]);
+    let route = rf.find_route(target_city, target_range, &vec![]);
 
     println!("{} {}", route.len(), route.join(","));
 }
