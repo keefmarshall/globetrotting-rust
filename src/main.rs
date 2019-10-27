@@ -21,8 +21,8 @@ fn main() {
     }
 
     let countries = countries_reader::read_countries_from_file("resources/countries.json").unwrap();
-    let country_map = country_list_ops::generate_lookup_map(&countries);
-    let rf = route_finder::RouteFinder(&country_map);
+    let city_map = country_list_ops::generate_lookup_map(&countries);
+    let rf = route_finder::RouteFinder(&city_map);
     let route = rf.find_route(target_city, target_range, &vec![]);
 
     println!("{} {}", route.len(), route.join(","));
@@ -39,10 +39,10 @@ mod tests {
         let distance = distance_calculator::calculate_distance(&countries[0], &countries[1]); // Aruba to Afghanistam
         assert!( (distance - 13240.6).abs() < 1.0);
 
-        let country_map = country_list_ops::generate_lookup_map(&countries);
-        assert_eq!(211, country_map.len());
+        let city_map = country_list_ops::generate_lookup_map(&countries);
+        assert_eq!(211, city_map.len());
 
-        let rf = route_finder::RouteFinder(&country_map);
+        let rf = route_finder::RouteFinder(&city_map);
         let route = rf.find_route("London", 500.0, &vec![]);
         assert_eq!(3, route.len());
         assert_eq!("Brussels", route[1]);
