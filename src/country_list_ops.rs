@@ -12,21 +12,21 @@ pub type CitiesByDistance = HashMap<String, Vec<(String, f64)>>;
 //    - the second entry in each Tuple is the distance from the source city
 // - the list is sorted by ascending distance
 pub fn generate_lookup_map(country_list: &Vec<Country>) -> CitiesByDistance {
-    let mut country_map = HashMap::new();
+    let mut country_map = Box::new(HashMap::new());
     for country in country_list.iter() {
-        country_map.insert(country.capital_city.clone(), sorted_list_of_other_countries(&country, &country_list));
+        (*country_map).insert(country.capital_city.clone(), sorted_list_of_other_countries(&country, &country_list));
     }
-    return country_map;
+    return *country_map;
 }
 
 fn sorted_list_of_other_countries(country: &Country, country_list: &Vec<Country>) -> Vec<(String, f64)> {
-    let mut list_of_other_countries: Vec<(String, f64)> = country_list.iter()
+    let mut list_of_other_countries: Box<Vec<(String, f64)>> = Box::new(country_list.iter()
         .filter( |c| c.id != country.id )
         .map( |c| (c.capital_city.clone(), distance_calculator::calculate_distance(country, c)) )
-        .collect();
+        .collect());
     
-    list_of_other_countries.sort_by( |a, b| a.1.partial_cmp(&b.1).unwrap() );
-    return list_of_other_countries;
+    (*list_of_other_countries).sort_by( |a, b| a.1.partial_cmp(&b.1).unwrap() );
+    return *list_of_other_countries;
 }
 
 
