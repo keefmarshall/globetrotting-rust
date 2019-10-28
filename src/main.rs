@@ -16,7 +16,6 @@ fn main() {
 
     let args: Vec<String> = env::args().collect();
     if args.len() > 1 {
-        println!("{}", args.join(" "));
         let sections: Vec<&str> = args[1].split('|').collect();
         if sections.len() == 2 {
             let target_country = sections[1];
