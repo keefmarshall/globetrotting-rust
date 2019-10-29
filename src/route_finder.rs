@@ -23,7 +23,7 @@ impl RouteFinder<'_> {
             new_visited.push(city);
 
             let mut longest = others.par_iter()
-                .map( |(o,r)| self.find_route(&o, *r, &new_visited) )
+                .map( |(o,r)| self.find_route(o, *r, &new_visited) )
                 .max_by( |a,b| a.len().cmp(&b.len()) )
                 .unwrap();
                 
