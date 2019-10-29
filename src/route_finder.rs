@@ -26,6 +26,7 @@ impl RouteFinder<'_> {
                 .map( |(o,r)| self.find_route(&o, *r, &new_visited) )
                 .max_by( |a,b| a.len().cmp(&b.len()) )
                 .unwrap();
+                
             route.append(&mut longest);
         }
 
