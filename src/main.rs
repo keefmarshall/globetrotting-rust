@@ -7,10 +7,10 @@ mod distance_calculator;
 mod route_finder;
 
 fn main() {
-    // TODO: try to use Rayon for parallelisation (will need some changes to code)
     let countries = countries_reader::read_countries_from_file("resources/countries.json").unwrap();
     let city_map = country_list_ops::generate_lookup_map(&countries);
 
+    // Default values in case nothing received on the cmd line
     let mut target_city = "Washington D.C.";
     let mut target_range = 2000.0;
 
