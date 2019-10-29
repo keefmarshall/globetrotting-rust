@@ -36,7 +36,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_thing() {
+    fn test_integration() {
         let countries = countries_reader::read_countries_from_file("resources/countries.json").unwrap();
         let distance = distance_calculator::calculate_distance(&countries[0], &countries[1]); // Aruba to Afghanistam
         assert!( (distance - 13240.6).abs() < 1.0);
